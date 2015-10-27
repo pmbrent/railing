@@ -15,10 +15,11 @@ module Phase5
         queries.nil? ? queries = req.body : queries.concat(req.body)
       end
       @params = parse_www_encoded_form(queries)
+      @params.nil? ? @params = route_params : @params.merge(route_params)
     end
 
     def [](key)
-      @params[key]
+      @params[key.to_s] || @params[key.to_sym]
     end
 
     # this will be useful if we want to `puts params` in the server log
