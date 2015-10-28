@@ -1,5 +1,3 @@
-require 'byebug'
-
 module Phase6
   class Route
     attr_reader :pattern, :http_method, :controller_class, :action_name
@@ -19,10 +17,10 @@ module Phase6
     # use pattern to pull out route params (save for later?)
     # instantiate controller and call controller action
     def run(req, res)
-      route_params = @pattern.match(req.path)
-      byebug
+      matched_data = @pattern.match(req.path)
+      route_params = Hash(matched_data.names.zip(matched_data.captures))
       controller = controller_class.new(req, res, route_params)
-      controller.send(action_name)
+      controller.invoke_action(controller.params[action])
     end
   end
 
