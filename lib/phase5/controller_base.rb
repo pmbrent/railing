@@ -1,5 +1,6 @@
 require_relative '../phase4/controller_base'
 require_relative './params'
+require 'byebug'
 
 module Phase5
   class ControllerBase < Phase4::ControllerBase
@@ -7,6 +8,7 @@ module Phase5
 
     # setup the controller
     def initialize(req, res, route_params = {})
+      super(req, res)
       @params = Params.new(req, route_params)
     end
   end

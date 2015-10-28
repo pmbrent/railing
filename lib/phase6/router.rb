@@ -18,9 +18,9 @@ module Phase6
     # instantiate controller and call controller action
     def run(req, res)
       matched_data = @pattern.match(req.path)
-      route_params = Hash(matched_data.names.zip(matched_data.captures))
+      route_params = Hash[matched_data.names.zip(matched_data.captures)]
       controller = controller_class.new(req, res, route_params)
-      controller.invoke_action(controller.params[action])
+      controller.invoke_action(@action_name)
     end
   end
 
