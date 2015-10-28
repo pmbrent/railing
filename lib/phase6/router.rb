@@ -11,7 +11,7 @@ module Phase6
 
     # checks if pattern matches path and method matches request method
     def matches?(req)
-      req.request_method.downcase == @http_method && @pattern =~ req.path
+      req.request_method.downcase == @http_method.to_s && @pattern =~ req.path
     end
 
     # use pattern to pull out route params (save for later?)
