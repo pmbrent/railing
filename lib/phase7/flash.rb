@@ -1,5 +1,6 @@
 require 'json'
 require 'webrick'
+require 'byebug'
 
 class Flash
 
@@ -17,31 +18,35 @@ class Flash
     unless existing_cookie.nil?
       @now_values = JSON.parse(existing_cookie.value)
     end
+  end
 
+  def empty?
+    @new_values.empty? && @now_values.empty?
   end
 
   def []=(key, val)
+    key = key.to_s
     @new_values[key] = val
   end
 
   def [](key)
-    if !@now_values.empty? && !@new_values.empty?
-      @now_values[key].concat(@new_values[key])  #assumes they're arrays
+    key = key.to_s
+    if @new_values[key] && @now_values[key]
+      @now_values[key] + "\n" + @new_values[key]
     else
-      @now_values[key] if @now_values
-      @new_values[key] if @new_values
+      @new_values[key] ? @new_values[key] : @now_values[key]
     end
   end
 
   def now
-    temp = Flash.new(@req, @res)
+    temp = Flash.new(@req)
     @now_values = @now_values.merge (temp.new_values)
   end
 
   def store_flash(res)
-    cookie = WEBrick::Cookie.new("_rails_lite_flash", @new_values.to_json)
-    cookie.path = '/'
-    res.cookies << cookie
+      cookie = WEBrick::Cookie.new("_rails_lite_flash", @new_values.to_json)
+      cookie.path = '/'
+      res.cookies << cookie
   end
 
 end
