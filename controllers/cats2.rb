@@ -1,3 +1,5 @@
+require_relative '../models/cat'
+
 class Cats2Controller < ControllerBase
   def index
     render_content(flash_test, "html")

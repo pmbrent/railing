@@ -1,3 +1,6 @@
+require_relative '../models/cat'
+require 'byebug'
+
 class CatsController < ControllerBase
   def create
     @cat = Cat.new(params["cat"])

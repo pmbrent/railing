@@ -1,7 +1,6 @@
 require 'active_support'
 require 'active_support/core_ext'
 require 'webrick'
-require 'byebug'
 
 require_relative '../lib/controller_base'
 require_relative '../lib/router'
@@ -42,7 +41,7 @@ router.draw do
   # get Regexp.new("^/cats/flash$"), Cats2Controller, :tryflash
   get Regexp.new("^/cats$"), CatsController, :index
   get Regexp.new("^/cats/(?<cat_id>\\d+)/statuses$"), StatusesController, :index
-  get Regexp.new("^/cats/create$"), CatsController, :create
+  post Regexp.new("^/cats$"), CatsController, :create
   get Regexp.new("^/cats/new$"), CatsController, :new
 end
 
