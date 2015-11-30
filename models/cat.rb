@@ -7,11 +7,13 @@ class Cat
 
   def initialize(params = {})
     params ||= {}
-    @name, @owner = params["name"], params["owner"]
+    @name = params["name"] || params[:name]
+    @owner = params["owner"] || params[:owner]
   end
 
   def save
-    return false unless @name.present? && @owner.present?
+    return false unless !@name.empty? && !@owner.empty?
+    @id ||= Cat.all.length
 
     Cat.all << self
     true
