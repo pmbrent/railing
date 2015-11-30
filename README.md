@@ -2,6 +2,8 @@ To boot up the server, just run 'ruby bin/server.rb'
 
 Remember that if you change any files, you'll need to restart the server; you can interrupt with Ctrl+C.
 
+Controllers just need to inherit from ControllerBase and define the methods you'll need.
+
 You can define routes using router.draw and regular expressions, e.g.
 
 ```ruby

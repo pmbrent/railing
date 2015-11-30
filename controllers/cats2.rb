@@ -1,6 +1,5 @@
 class Cats2Controller < ControllerBase
   def index
-    debugger
     render_content(flash_test, "html")
   end
 
