@@ -1,4 +1,3 @@
-require 'byebug'
 class CatsController < ControllerBase
   def create
     @cat = Cat.new(params["cat"])
