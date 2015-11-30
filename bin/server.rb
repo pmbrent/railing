@@ -1,10 +1,15 @@
 require 'active_support'
 require 'active_support/core_ext'
 require 'webrick'
+
 require_relative '../lib/controller_base'
 require_relative '../lib/router'
 require_relative '../lib/flash'
-require_relative '../models/'
+require_relative '../models/cat'
+require_relative '../controllers/statuses'
+require_relative '../controllers/cats2'
+
+require 'byebug'
 
 $cats = [
   { id: 1, name: "Curie" },
@@ -17,59 +22,12 @@ $statuses = [
   { id: 3, cat_id: 1, text: "Curie is cool!" }
 ]
 
-# def flash_test
-#   if flash[:messages]
-#   <<-HTML.html_safe
-#     #{flash[:messages]}
-#     #{$cats.to_s}
-#   HTML
-#   end
-# end
-
-class CatsController < ControllerBase
-  def create
-    @cat = Cat.new(params["cat"])
-    if @cat.save
-      redirect_to("/cats")
-    else
-      render :new
-    end
-  end
-
-  def index
-    @cats = Cat.all
-    render :index
-  end
-
-  def new
-    @cat = Cat.new
-    render :new
-  end
-end
-
-class StatusesController < ControllerBase
-  def index
-    statuses = $statuses.select do |s|
-      s[:cat_id] == Integer(params[:cat_id])
-    end
-
-    render_content(statuses.to_s, "text/text")
-  end
-end
-
-class Cats2Controller < ControllerBase
-  # def index
-  #   render_content($cats.to_s, "text/text")
-  # end
-
-  def index
-    render_content(flash_test, "html")
-  end
-
-  def tryflash
-    flash[:messages] = "First/Second visit"
-    flash.now[:messages] = "First visit only"
-    render_content(flash_test, "html")
+def flash_test
+  if flash[:messages]
+  <<-HTML.html_safe
+    #{flash[:messages]}
+    #{$cats.to_s}
+  HTML
   end
 end
 
