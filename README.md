@@ -1,4 +1,4 @@
-# MVC Server Framework
+# Railing MVC Server Framework
 ## Using Ruby & WEBrick, inspired by Rails
 Welcome to my open-source simple server, leveraging the convenience of WEBrick and ERB without all the extraneous structure of Rails. The goal of this project was to be lightweight and easy to use; I hope it's useful to you!
 
